@@ -1,10 +1,13 @@
 import React from 'react'
 import Shiba from './Shiba'
 import {Canvas, useFrame, useThree, useLoader} from '@react-three/fiber';
-import {OrbitControls, Stars, PerspectiveCamera, useTexture, Cloud, useCubeTexture, Text3D, Center} from '@react-three/drei';
+import {OrbitControls, Stars, PerspectiveCamera, useTexture, Cloud, useCubeTexture, Text3D, Center, PresentationControls, Plane} from '@react-three/drei';
 import styled from 'styled-components';
 import Camera from './Camera';
 import { Color } from 'three';
+import Floor from './Plane';
+import { Physics } from '@react-three/cannon';
+import Light from './Light';
 
 const Container = styled.div`
     width:100%;
@@ -46,15 +49,18 @@ const Model = () => {
   return (
     <Container>
         <CanvasContainer>
-            <Canvas shadows >
-                <color attach='background' args={['#f0f0f0']} camera={{ position: [2, 1, 1], near: 15, far: 30, fov: 60 }}/>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[-10, 10, 5]} shadow-mapSize={[256, 256]} shadow-bias={-0.0001} castShadow>
-                <orthographicCamera attach="shadow-camera" args={[-10, 10, -10, 10]} />
-                </directionalLight>
-
-                <OrbitControls autoRotate autoRotateSpeed={1} enablePan={false} enableZoom={false} minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} />
-                <Shiba/>
+            <Canvas shadows dpr={2}>
+                <color attach='background' args={['#0d1903']}/>
+                <Light/>
+                <Camera sizes={sizes}/>
+                <OrbitControls maxPolarAngle={Math.PI/3} minPolarAngle={Math.PI/3} enableZoom={false}/>
+                <Physics gravity={[0, -4, 0]}>
+                    <Floor/>
+                    <Shiba/>
+                    {/* <RigidBody position={[0, -1, 0]} type="fixed" colliders="false">
+                        <CuboidCollider restitution={0.1} args={[1000, 1, 1000]} />
+                    </RigidBody> */}
+                </Physics>
             </Canvas>
         </CanvasContainer>
         <ContentContainer>

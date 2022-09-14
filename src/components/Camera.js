@@ -14,7 +14,8 @@ const Camera = ({sizes}) => {
     })
   
     return(
-        <OrbitControls autoRotate autoRotateSpeed={0.2} enablePan={false} enableZoom={false} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 4} />
+        <PerspectiveCamera ref={cameraRef} fov={75} aspect={sizes.width/sizes.height}/>
+        // {<OrthographicCamera ref={cameraRef}/>}
       )
 }
 
