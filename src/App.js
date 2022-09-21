@@ -1,4 +1,4 @@
-import Model from "./components/Canvas";
+import Model from "./components/Model";
 
 
 

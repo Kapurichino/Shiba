@@ -4,6 +4,7 @@ import {OrbitControls, Stars, PerspectiveCamera, useTexture, Cloud, useCubeTextu
 
 const Camera = ({sizes}) => {
     const cameraRef = useRef();
+ 
   
     useFrame((state)=>{
       let time = state.clock.getElapsedTime();

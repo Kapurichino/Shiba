@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Shiba from './Shiba'
 import {Canvas, useFrame, useThree, useLoader} from '@react-three/fiber';
-import {OrbitControls, Stars, PerspectiveCamera, useTexture, Cloud, useCubeTexture, Text3D, Center, PresentationControls, Plane} from '@react-three/drei';
+import {OrbitControls, Stars, PerspectiveCamera, useTexture, Cloud, useCubeTexture, Text3D, Center, PresentationControls, Plane, Box} from '@react-three/drei';
 import styled from 'styled-components';
 import Camera from './Camera';
 import { Color } from 'three';
@@ -46,17 +46,19 @@ const sizes={
 }
 
 const Model = () => {
+    const boxRef = useRef();
   return (
     <Container>
         <CanvasContainer>
-            <Canvas shadows dpr={2}>
+            <Canvas colorManagement shadows={true} dpr={2}>
                 <color attach='background' args={['#0d1903']}/>
                 <Light/>
                 <Camera sizes={sizes}/>
-                <OrbitControls maxPolarAngle={Math.PI/3} minPolarAngle={Math.PI/3} enableZoom={false}/>
-                <Physics gravity={[0, -4, 0]}>
+                <OrbitControls autoRotate={true} autoRotateSpeed={2} enableRotate={true} enableZoom={true}/>
+                <Physics>
                     <Floor/>
                     <Shiba/>
+
                     {/* <RigidBody position={[0, -1, 0]} type="fixed" colliders="false">
                         <CuboidCollider restitution={0.1} args={[1000, 1, 1000]} />
                     </RigidBody> */}
@@ -65,7 +67,7 @@ const Model = () => {
         </CanvasContainer>
         <ContentContainer>
             <Title>
-                Yes, here's adorable shiba.
+                Yes, here's a adorable shiba.
             </Title>
             <Content>
                 Hi, This Web Site is the purpose of practice 3D Object Controls.
